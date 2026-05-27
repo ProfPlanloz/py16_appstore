@@ -1,0 +1,107 @@
+{
+  "_comment": "PY16OS App-Store Index.",
+  "apps": [
+    {
+      "id": "crypto_app",
+      "name": "CRYPTO",
+      "desc": "CRYPTO LIVE PRICES",
+      "version": "1.0",
+      "files": [
+        "apps/crypto_app/crypto_app.py",
+        "apps/crypto_app/crypto_app.p16img"
+      ]
+    },
+    {
+      "id": "ollama_chat_app",
+      "name": "OLLAMA",
+      "desc": "OLLAMA CHAT",
+      "version": "1.0",
+      "files": [
+        "apps/ollama_chat_app/ollama_chat_app.py",
+        "apps/ollama_chat_app/ollama_chat_app.p16img"
+      ]
+    },
+    {
+      "id": "weather_app",
+      "name": "WEATHER",
+      "desc": "LIVE WEATHER",
+      "version": "1.0",
+      "files": [
+        "apps/weather_app/weather_app.py",
+        "apps/weather_app/weather_app.p16img"
+      ]
+    },
+    {
+      "id": "boot_cart",
+      "name": "BOOT",
+      "desc": "BOOT CART",
+      "version": "1.0",
+      "files": [
+        "carts/boot_cart.pdf"
+      ]
+    },
+    {
+      "id": "py16casino",
+      "name": "PY16CASINO",
+      "desc": "A 5-IN-1 CASINO",
+      "version": "1.0",
+      "files": [
+        "carts/py16casino.pdf"
+      ]
+    },
+    {
+      "id": "py16os_cart",
+      "name": "PY16OS",
+      "desc": "A WINDOW DESKTOP",
+      "version": "1.0",
+      "files": [
+        "carts/py16os_cart.pdf"
+      ]
+    },
+    {
+      "id": "tux_adventure",
+      "name": "TUX",
+      "desc": "JUMP & RUN ADVENTURE",
+      "version": "1.0",
+      "files": [
+        "carts/tux_adventure_gemini_code_test2.pdf"
+      ]
+    },
+    {
+      "id": "monster_icon",
+      "name": "MONSTER",
+      "desc": "MONSTER ICON",
+      "version": "1.0",
+      "files": [
+        "py16img/monster.p16img"
+      ]
+    },
+    {
+      "id": "slot_icon",
+      "name": "SLOT",
+      "desc": "SLOT ICON",
+      "version": "1.0",
+      "files": [
+        "py16img/slot.p16img"
+      ]
+    },
+    {
+      "id": "train_icon",
+      "name": "TRAIN",
+      "desc": "TRAIN ICON",
+      "version": "1.0",
+      "files": [
+        "py16img/train.p16img"
+      ]
+    },
+    {
+      "id": "virusscan_icon",
+      "name": "VIRUSSCAN",
+      "desc": "VIRUSSCAN ICON",
+      "version": "1.0",
+      "files": [
+        "py16img/virusscan.p16img"
+      ]
+    }
+  ]
+}
