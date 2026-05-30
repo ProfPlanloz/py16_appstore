@@ -19,8 +19,60 @@ APP = {
 
 # Cache V2: Da wir nun OHLC Tuple statt einzelner Floats speichern,
 # ändern wir den Dateinamen, um Crashs mit alten Caches zu vermeiden.
-CACHE_FILE = "krypto_cache_v2.json"
-EXPORT_FILE = "krypto_watchlist.txt"
+# Pfad wird an das Plugin-Verzeichnis verankert, damit Cache/Export
+# unabhängig vom aktuellen Arbeitsverzeichnis (CWD) gefunden werden.
+try:
+    _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+except NameError:
+    _BASE_DIR = os.getcwd()
+CACHE_FILE = os.path.join(_BASE_DIR, "krypto_cache_v2.json")
+EXPORT_FILE = os.path.join(_BASE_DIR, "krypto_watchlist.txt")
+
+# --- Layout (lokale Koordinaten, in update UND draw identisch genutzt) ---
+# Eine Quelle der Wahrheit, damit Hitboxen und Zeichnung nicht auseinanderlaufen.
+BTN_W, BTN_H = 36, 11
+BTN_Y = 38
+BTN_X1 = 6
+BTN_X2 = BTN_X1 + BTN_W + 4
+BTN_X3 = BTN_X2 + BTN_W + 4
+TAB_Y = 70
+TAB_H = 10
+COIN_HIT_TOP, COIN_HIT_BOT = 14, 36
+
+def tab_width(w):
+    """Breite einer einzelnen Tab-Zelle für die gegebene Fensterbreite."""
+    return (w - 24) // 4
+
+# Statische UI-Labels, die übersetzt werden dürfen. Dynamische Werte
+# (z.B. Preis-Strings wie "$1,234.56") werden NICHT durch tr() geschickt.
+STATIC_LABELS = {
+    "READY", "LOADING...", "API FEHLER!", "NO DATA",
+    "CHART BEREIT", "EXPORT OK!", "EXPORT ERR!",
+}
+
+def fmt_price(p):
+    """Einheitliche Preisformatierung (eine Quelle der Wahrheit)."""
+    return f"${p:,.2f}" if p > 10 else f"${p:,.4f}"
+
+def fmt_pct(p):
+    """Vorzeichenbehaftete Prozentanzeige, z.B. '+2.34%' / '-1.05%'."""
+    return f"{p:+.2f}%"
+
+def pct_change_24h(win, symbol):
+    """24h-Veränderung in %: Open der ältesten 24h-Kerze vs. aktueller Preis.
+    Gibt None zurück, wenn Preis oder Historie (noch) fehlen."""
+    hist = win["histories_24h"].get(symbol, [])
+    price = win["last_prices"].get(symbol)
+    if not hist or price is None:
+        return None
+    open_24h = hist[0][0]  # Open der ältesten (linkesten) Kerze, ~24h alt
+    if open_24h <= 0:
+        return None
+    return (price / open_24h - 1.0) * 100.0
+
+def maybe_tr(tr, s):
+    """tr() nur auf bekannte statische Labels anwenden, sonst Wert roh lassen."""
+    return tr(s) if s in STATIC_LABELS else s
 
 def fetch_crypto(win, symbol):
     try:
@@ -41,10 +93,7 @@ def fetch_crypto(win, symbol):
             win["last_prices"][symbol] = price
             
             # Formatierung
-            if price > 10:
-                win["result"] = f"${price:,.2f}"
-            else:
-                win["result"] = f"${price:,.4f}"
+            win["result"] = fmt_price(price)
 
         # OHLC (Open, High, Low, Close) Funktion für sauberen Code
         def get_ohlc(url_str):
@@ -76,7 +125,7 @@ def fetch_crypto(win, symbol):
         # Smart-Cache aktualisieren
         save_cache(win)
         
-    except Exception as e:
+    except Exception:
         win["result"] = "API FEHLER!"
         win["trend_color"] = 8
         win["error"] = True
@@ -97,8 +146,13 @@ def save_cache(win):
             "last_fetch_time": win["last_fetch_time"],
             "active_tab": win["active_tab"]
         }
-        with open(CACHE_FILE, "w", encoding="utf-8") as f:
+        # Atomar schreiben: erst in temp, dann umbenennen. So entsteht nie
+        # eine halb geschriebene Cache-Datei (auch nicht bei Absturz/Abbruch
+        # oder zwei Instanzen, die sich die Datei teilen).
+        tmp = CACHE_FILE + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
             json.dump(cache_data, f)
+        os.replace(tmp, CACHE_FILE)
     except Exception:
         pass
 
@@ -107,7 +161,10 @@ def load_cache(win):
         try:
             with open(CACHE_FILE, "r", encoding="utf-8") as f:
                 cache_data = json.load(f)
-                win["c_idx"] = cache_data.get("c_idx", 0)
+                # c_idx gegen die aktuelle Coin-Liste klemmen: verhindert
+                # IndexError, falls die Liste seit dem letzten Lauf kürzer ist.
+                idx = cache_data.get("c_idx", 0)
+                win["c_idx"] = idx if 0 <= idx < len(win["symbols"]) else 0
                 win["last_prices"] = cache_data.get("last_prices", {})
                 win["histories_24h"] = cache_data.get("histories_24h", {})
                 win["histories_7d"] = cache_data.get("histories_7d", {})
@@ -125,10 +182,7 @@ def update_display_value(win):
     symbol = win["symbols"][win["c_idx"]]
     if symbol in win["last_prices"]:
         price = win["last_prices"][symbol]
-        if price > 10:
-            win["result"] = f"${price:,.2f}"
-        else:
-            win["result"] = f"${price:,.4f}"
+        win["result"] = fmt_price(price)
     else:
         win["result"] = "NO DATA"
 
@@ -137,6 +191,8 @@ def export_watchlist(win):
         symbol = win["symbols"][win["c_idx"]]
         coin_name = win["coins"][win["c_idx"]]
         current_p = win["result"]
+        pct = pct_change_24h(win, symbol)
+        pct_line = fmt_pct(pct) if pct is not None else "N/A"
         hist_24h = win["histories_24h"].get(symbol, [])
         hist_7d = win["histories_7d"].get(symbol, [])
         hist_1m = win["histories_1m"].get(symbol, [])
@@ -149,6 +205,7 @@ def export_watchlist(win):
             f"Exportzeitpunkt: {time.strftime('%Y-%m-%d %H:%M:%S')}",
             f"Coin:            {coin_name} ({symbol})",
             f"Kurs:            {current_p}",
+            f"24h-Aenderung:   {pct_line}",
             "-----------------------------------------",
             "VERLAUFSTRENDS (OHLC-Punkte geladen):",
             f"  24 Stunden-Verlauf:  {len(hist_24h)} Kerzen",
@@ -234,25 +291,18 @@ def update(win, lx, ly, m_pressed, m_sec_pressed, m_held):
     if win.get("loading"): 
         return
         
-    btn_w, btn_h = 36, 11
-    btn_y = 38 # Lokales Y für Update-Hitboxen
-    bx1 = 6                     
-    bx2 = bx1 + btn_w + 4       
-    bx3 = bx2 + btn_w + 4       
-    
-    tab_y = 70
-    tab_h = 10
-    tab_w = (win["w"] - 24) // 4
+    btn_y = BTN_Y # Lokales Y für Update-Hitboxen
+    tw = tab_width(win["w"])
     
     # Hover-Checks
     hover_tabs = []
     for idx in range(4):
-        tx = 6 + idx * (tab_w + 4)
-        hover_tabs.append(tx <= lx <= tx + tab_w and tab_y <= ly <= tab_y + tab_h)
+        tx = BTN_X1 + idx * (tw + 4)
+        hover_tabs.append(tx <= lx <= tx + tw and TAB_Y <= ly <= TAB_Y + TAB_H)
         
-    hover_update = (bx1 <= lx <= bx1 + btn_w and btn_y <= ly <= btn_y + btn_h)
-    hover_auto = (bx2 <= lx <= bx2 + btn_w and btn_y <= ly <= btn_y + btn_h)
-    hover_save = (bx3 <= lx <= bx3 + btn_w and btn_y <= ly <= btn_y + btn_h)
+    hover_update = (BTN_X1 <= lx <= BTN_X1 + BTN_W and btn_y <= ly <= btn_y + BTN_H)
+    hover_auto = (BTN_X2 <= lx <= BTN_X2 + BTN_W and btn_y <= ly <= btn_y + BTN_H)
+    hover_save = (BTN_X3 <= lx <= BTN_X3 + BTN_W and btn_y <= ly <= btn_y + BTN_H)
     
     if hover_update: win["btn_hover_type"] = 1
     elif hover_auto: win["btn_hover_type"] = 2
@@ -296,7 +346,7 @@ def update(win, lx, ly, m_pressed, m_sec_pressed, m_held):
                 win["active_tab"] = clicked_tab
                 py16.tone(480 + clicked_tab * 40, duration_ms=25, wave=py16.WAVE_TRIANGLE, decay_ms=15)
                 save_cache(win)
-        elif 14 <= ly <= 36: 
+        elif COIN_HIT_TOP <= ly <= COIN_HIT_BOT: 
             if lx < win["w"] // 2:
                 win["c_idx"] = (win["c_idx"] - 1) % len(win["coins"])
             else:
@@ -342,11 +392,11 @@ def draw(win, wx, wy, ww, wh, is_active):
     py16.text(current_coin, wx + 6, text_y + 11, coin_color)
     
     # 3. Haupt-Buttons
-    by = wy + 38
-    btn_w, btn_h = 36, 11
-    bx1 = wx + 6
-    bx2 = bx1 + btn_w + 4
-    bx3 = bx2 + btn_w + 4
+    by = wy + BTN_Y
+    btn_w, btn_h = BTN_W, BTN_H
+    bx1 = wx + BTN_X1
+    bx2 = wx + BTN_X2
+    bx3 = wx + BTN_X3
     
     hover_type = win.get("btn_hover_type", 0)
     
@@ -378,19 +428,29 @@ def draw(win, wx, wy, ww, wh, is_active):
         py16.rectfill(wx + 6, by + 13, bar_w, 2, 12)
         
     res_color = 5 if win["loading"] else win["trend_color"]
-    py16.text(tr(win["result"]), wx + 6, by + 17, res_color)
+    price_str = maybe_tr(tr, win["result"])
+    py16.text(price_str, wx + 6, by + 17, res_color)
+
+    # 24h-Veränderung in % rechts neben dem Preis (grün >= 0, rot < 0)
+    if not win["loading"] and not win.get("error"):
+        pct = pct_change_24h(win, win["symbols"][win["c_idx"]])
+        if pct is not None:
+            pct_str = fmt_pct(pct)
+            pct_col = 11 if pct >= 0 else 8
+            pct_x = wx + 6 + len(price_str) * 4 + 6
+            py16.text(pct_str, pct_x, by + 17, pct_col)
     
     if win.get("status_msg"):
-        py16.text(tr(win["status_msg"]), wx + 6, by + 26, 14)
+        py16.text(maybe_tr(tr, win["status_msg"]), wx + 6, by + 26, 14)
     
     # --- INTERAKTIVES TABS-SYSTEM ---
-    tab_y = wy + 70
-    tab_h = 10
-    tab_w = (ww - 24) // 4
+    tab_y = wy + TAB_Y
+    tab_h = TAB_H
+    tab_w = tab_width(ww)
     tab_names = ["24H", "7D", "1M", "1Y"]
     
     for idx, name in enumerate(tab_names):
-        tx = wx + 6 + idx * (tab_w + 4)
+        tx = wx + BTN_X1 + idx * (tab_w + 4)
         is_active_tab = (win["active_tab"] == idx)
         
         tab_col = coin_color if is_active_tab else (5 if hover_type == 4 + idx else 1)
