@@ -8,13 +8,13 @@ import py16
 # Das Krypto-Terminal-Paket für py16OS mit automatischer Icon-Zuweisung!
 APP = {
     "id": "crypto", 
-    "name": "KRYPTO", 
+    "name": "CRYPTO", 
     "w": 160, 
     "h": 160, 
     "resizable": True,
     "min_w": 140, 
     "min_h": 110,
-    "icon": "krypto.p16img" 
+    "icon": "crypto.p16img" 
 }
 
 # Cache V2: Da wir nun OHLC Tuple statt einzelner Floats speichern,

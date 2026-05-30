@@ -11,7 +11,7 @@ APP = {
     "w": 140, 
     "h": 145, 
     "resizable": False,
-    "icon": "weather.p16img"
+    "icon": "weather_app.p16img"
 }
 SAVE_PATH = "weather_save.json"
 
