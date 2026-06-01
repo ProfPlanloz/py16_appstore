@@ -192,11 +192,81 @@
       ]
     },
     {
+      "id": "appel_icon",
+      "name": "APPEL",
+      "desc": "APPEL ICON",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "GARDEN", "FOOD", "ART"],
+      "files": [
+        "p16img/appel.p16img"
+      ]
+    },
+    {
+      "id": "chefhat_icon",
+      "name": "CHEFHAT",
+      "desc": "CHEFHAT ICON",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "FOOD", "KITCHEN", "ART"],
+      "files": [
+        "p16img/chefhat.p16img"
+      ]
+    },
+    {
+      "id": "data_storage_icon",
+      "name": "DATASTORAGE",
+      "desc": "DATA STORAGE ICON",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "TECH", "ART"],
+      "files": [
+        "p16img/data_storage.p16img"
+      ]
+    },
+    {
+      "id": "dress_1_icon",
+      "name": "DRESS1",
+      "desc": "DRESS 1 ICON",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "DRESS", "ART"],
+      "files": [
+        "p16img/dress_1.p16img"
+      ]
+    },
+    {
+      "id": "heart_icon",
+      "name": "HEART",
+      "desc": "HEART ICON",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "ART"],
+      "files": [
+        "p16img/heart.p16img"
+      ]
+    },
+    {
       "id": "monster_icon",
       "name": "MONSTER",
       "desc": "MONSTER ICON",
       "version": "1.0",
-      "author": "PROFPLANLOZ/ GEMINI",
+      "author": "GEMINI",
       "created": "2026-05-21",
       "license": "CC0-1.0",
       "lang": [],
@@ -206,11 +276,25 @@
       ]
     },
     {
+      "id": "rose_icon",
+      "name": "ROSE",
+      "desc": "ROSE ICON",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "GARDEN", "ART"],
+      "files": [
+        "p16img/rose.p16img"
+      ]
+    },
+    {
       "id": "slot_icon",
       "name": "SLOT",
       "desc": "SLOT ICON",
       "version": "1.0",
-      "author": "PROFPLANLOZ/ GEMINI",
+      "author": "GEMINI",
       "created": "2026-05-23",
       "license": "CC0-1.0",
       "lang": [],
@@ -220,11 +304,25 @@
       ]
     },
     {
+      "id": "sunflower_icon",
+      "name": "SUNFLOWER",
+      "desc": "SUNFLOWER ICON",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "GARDEN", "ART"],
+      "files": [
+        "p16img/sunflower.p16img"
+      ]
+    },
+    {
       "id": "train_icon",
       "name": "TRAIN",
       "desc": "TRAIN ICON",
       "version": "1.0",
-      "author": "PROFPLANLOZ/ GEMINI",
+      "author": "GEMINI",
       "created": "2026-05-23",
       "license": "",
       "lang": [],
@@ -238,7 +336,7 @@
       "name": "VIRUSSCAN",
       "desc": "VIRUSSCAN ICON",
       "version": "1.0",
-      "author": "PROFPLANLOZ/ GEMINI",
+      "author": "GEMINI",
       "created": "2026-05-21",
       "license": "CC0-1.0",
       "lang": [],
