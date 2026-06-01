@@ -106,6 +106,7 @@
         "apps/weather_app/weather_app.p16img"
       ]
     },
+
     {
       "id": "boot_cart",
       "name": "BOOT",
@@ -163,20 +164,6 @@
       ]
     },
     {
-      "id": "monster_icon",
-      "name": "MONSTER",
-      "desc": "MONSTER ICON",
-      "version": "1.0",
-      "author": "PROFPLANLOZ/ GEMINI",
-      "created": "2026-05-21",
-      "license": "CC0-1.0",
-      "lang": [],
-      "tags": ["ICON", "ART"],
-      "files": [
-        "py16img/monster.p16img"
-      ]
-    },
-    {
       "id": "py16_2",
       "name": "PY16_2",
       "desc": "WALLPAPER PY16 2",
@@ -187,7 +174,35 @@
       "lang": [],
       "tags": ["WALLPAPER", "ART"],
       "files": [
-        "py16img/py16_2.p16canvas"
+        "p16canvas/py16_2.p16canvas"
+      ]
+    },
+    {
+      "id": "space",
+      "name": "SPACE",
+      "desc": "WALLPAPER SPACE",
+      "version": "1.0",
+      "author": "PROFPLANLOZ",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/space.p16canvas"
+      ]
+    },
+    {
+      "id": "monster_icon",
+      "name": "MONSTER",
+      "desc": "MONSTER ICON",
+      "version": "1.0",
+      "author": "PROFPLANLOZ/ GEMINI",
+      "created": "2026-05-21",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ICON", "ART"],
+      "files": [
+        "p16img/monster.p16img"
       ]
     },
     {
@@ -201,7 +216,7 @@
       "lang": [],
       "tags": ["ICON", "ART"],
       "files": [
-        "py16img/slot.p16img"
+        "p16img/slot.p16img"
       ]
     },
     {
@@ -215,7 +230,7 @@
       "lang": [],
       "tags": ["ICON", "ART"],
       "files": [
-        "py16img/train.p16img"
+        "p16img/train.p16img"
       ]
     },
     {
@@ -229,7 +244,35 @@
       "lang": [],
       "tags": ["ICON", "ART"],
       "files": [
-        "py16img/virusscan.p16img"
+        "p16img/virusscan.p16img"
+      ]
+    },
+    {
+      "id": "test",
+      "name": "test",
+      "desc": "TEST ANIMATION",
+      "version": "1.0",
+      "author": "-",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ANIMATION", "ART"],
+      "files": [
+        "p16mov/ball.p16mov"
+      ]
+    },
+    {
+      "id": "ball",
+      "name": "BALL",
+      "desc": "BALL ANIMATION",
+      "version": "1.0",
+      "author": "CLAUDE",
+      "created": "2026-06-01",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["ANIMATION", "ART"],
+      "files": [
+        "p16sheet/ball.p16sheet"
       ]
     }
   ]
