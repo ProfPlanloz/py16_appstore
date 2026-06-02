@@ -27,6 +27,19 @@ except NameError:
     _BASE_DIR = os.getcwd()
 CACHE_FILE = os.path.join(_BASE_DIR, "krypto_cache_v2.json")
 EXPORT_FILE = os.path.join(_BASE_DIR, "krypto_watchlist.txt")
+# Editierbare Coin-Liste. Wird beim ersten Start als Vorlage angelegt.
+COINS_FILE = os.path.join(_BASE_DIR, "krypto_coins.json")
+
+# Default-Coins (Fallback + Vorlage für die Konfigurationsdatei).
+# Format: (Anzeigename, Binance-Symbol). Name wird groß/auf 10 Zeichen
+# getrimmt angezeigt; Symbol muss ein gültiges Binance-USDT-Paar sein.
+DEFAULT_COINS = [
+    ("BITCOIN", "BTCUSDT"),
+    ("ETHEREUM", "ETHUSDT"),
+    ("SOLANA", "SOLUSDT"),
+    ("DOGECOIN", "DOGEUSDT"),
+]
+MAX_COINS = 12  # Obergrenze, damit ein Auto-Refresh-Zyklus handhabbar bleibt
 
 # --- Layout (lokale Koordinaten, in update UND draw identisch genutzt) ---
 # Eine Quelle der Wahrheit, damit Hitboxen und Zeichnung nicht auseinanderlaufen.
@@ -227,10 +240,65 @@ def export_watchlist(win):
         win["status_time"] = time.time()
         return False
 
+def _coerce_coins(raw):
+    """Validiert eine geladene Coin-Liste und gibt (coins, symbols) zurück.
+    Akzeptiert Einträge als {"name","symbol"} oder ["name","symbol"].
+    Ungültige Einträge werden übersprungen; Duplikate (per Symbol) entfernt."""
+    coins, symbols, seen = [], [], set()
+    if not isinstance(raw, list):
+        return [], []
+    for entry in raw:
+        name = sym = None
+        if isinstance(entry, dict):
+            name, sym = entry.get("name"), entry.get("symbol")
+        elif isinstance(entry, (list, tuple)) and len(entry) >= 2:
+            name, sym = entry[0], entry[1]
+        if not isinstance(name, str) or not isinstance(sym, str):
+            continue
+        name, sym = name.strip().upper(), sym.strip().upper()
+        if not name or not sym or sym in seen:
+            continue
+        seen.add(sym)
+        coins.append(name)
+        symbols.append(sym)
+        if len(coins) >= MAX_COINS:
+            break
+    return coins, symbols
+
+def _write_default_coins():
+    """Legt die Vorlage-Datei mit den Default-Coins an (atomar, fehlertolerant)."""
+    try:
+        data = [{"name": n, "symbol": s} for n, s in DEFAULT_COINS]
+        tmp = COINS_FILE + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+        os.replace(tmp, COINS_FILE)
+    except Exception:
+        pass
+
+def load_coins(win):
+    """Lädt die editierbare Coin-Liste. Existiert keine Datei, wird eine
+    Vorlage mit den Defaults geschrieben. Bei Fehlern/Leere -> Defaults."""
+    coins = symbols = None
+    if os.path.isfile(COINS_FILE):
+        try:
+            with open(COINS_FILE, encoding="utf-8") as f:
+                coins, symbols = _coerce_coins(json.load(f))
+        except Exception:
+            coins = symbols = None
+    else:
+        _write_default_coins()
+
+    if not coins:  # Datei fehlte, war leer oder ungültig
+        coins = [n for n, _ in DEFAULT_COINS]
+        symbols = [s for _, s in DEFAULT_COINS]
+
+    win["coins"] = coins
+    win["symbols"] = symbols
+
 def init(win):
-    win["coins"] = ["BITCOIN", "ETHEREUM", "SOLANA", "DOGECOIN"]
-    win["symbols"] = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "DOGEUSDT"]
     win["c_idx"] = 0
+    load_coins(win)  # füllt win["coins"] und win["symbols"]
     win["result"] = "READY"
     win["loading"] = False
     win["error"] = False
