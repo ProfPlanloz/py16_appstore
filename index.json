@@ -2,6 +2,36 @@
   "_comment": "PY16OS App-Store Index. Felder pro Eintrag: id, name, desc, version, author, created, license, lang (Liste), tags (Liste), files (Liste).",
   "apps": [
     {
+      "id": "arkanoid_add",
+      "name": "ARKANOID",
+      "desc": "A ARKANOID GAME",
+      "version": "1.0",
+      "author": "PROFPLANLOZ/ CLAUDE /GEMINI",
+      "created": "2026-06-03",
+      "license": "GPL V3",
+      "lang": [""],
+      "tags": ["GAME"],
+      "files": [
+        "apps/arkanoid_add/arkanoid_add.py",
+        "apps/arkanoid_add/arkanoid_add.p16img"
+      ]
+    },
+    {
+      "id": "b-img_app",
+      "name": "B-IMG",
+      "desc": "GRAPHICS PROGRAM FOR .P16IMG",
+      "version": "1.0",
+      "author": "PROFPLANLOZ/ CLAUDE /GEMINI",
+      "created": "2026-06-02",
+      "license": "GPL V3",
+      "lang": ["EN"],
+      "tags": ["GRAPHICS", "TOOL"],
+      "files": [
+        "apps/b-img_app/b-img_app.py",
+        "apps/b-img_app/b-img_app.p16img"
+      ]
+    },
+    {
       "id": "calendar_app",
       "name": "CALENDAR",
       "desc": "CALENDAR APP",
@@ -17,18 +47,18 @@
       ]
     },
     {
-      "id": "exchange_app",
-      "name": "EXCHANGE",
-      "desc": "EXCHANGE LIVE PRICES",
+      "id": "canvas256_app",
+      "name": "CANVAS256",
+      "desc": "GRAPHICS PROGRAM FOR .P16CANVAS",
       "version": "1.0",
       "author": "PROFPLANLOZ/ CLAUDE/ GEMINI",
-      "created": "2026-06-01",
+      "created": "2026-06-02",
       "license": "GPL V3",
       "lang": ["EN"],
-      "tags": ["FINANCE", "LIVE", "NET"],
+      "tags": ["GRAPHICS", "TOOL"],
       "files": [
-        "apps/exchange_app/exchange_app",
-        "apps/exchange_app/exchange_app.p16img"
+        "apps/canvas256_app/canvas256_app",
+        "apps/canvas256_app/canvas256_app.p16img"
       ]
     },    
     {
@@ -44,6 +74,21 @@
       "files": [
         "apps/crypto_app/crypto_app.py",
         "apps/crypto_app/crypto_app.p16img"
+      ]
+    },
+    {
+      "id": "exchange_app",
+      "name": "EXCHANGE",
+      "desc": "EXCHANGE LIVE PRICES",
+      "version": "1.0",
+      "author": "PROFPLANLOZ/ CLAUDE/ GEMINI",
+      "created": "2026-06-01",
+      "license": "GPL V3",
+      "lang": ["EN"],
+      "tags": ["FINANCE", "LIVE", "NET"],
+      "files": [
+        "apps/exchange_app/exchange_app",
+        "apps/exchange_app/exchange_app.p16img"
       ]
     },
     {    
@@ -77,6 +122,21 @@
       ]
     },
     {
+      "id": "news_app",
+      "name": "NEWS",
+      "desc": "RSS FEEDS",
+      "version": "1.0",
+      "author": "PROFPLANLOZ/ CLAUDE / GEMINI",
+      "created": "2026-06-03",
+      "license": "GPL V3",
+      "lang": ["DE"],
+      "tags": ["RSS", "LIVE", "NET"],
+      "files": [
+        "apps/news_app/news_app.py",
+        "apps/news_app/news_app.p16img"
+      ]
+    },
+    {
       "id": "oichikabu_app",
       "name": "OICHIKABU",
       "desc": "A OICHI KABU GAME",
@@ -104,6 +164,21 @@
       "files": [
         "apps/ollama_chat_app/ollama_chat_app.py",
         "apps/ollama_chat_app/ollama_chat_app.p16img"
+      ]
+    },
+    {
+      "id": "qr_code_generator",
+      "name": "QRCODE",
+      "desc": "QR CODE GENERATOR",
+      "version": "1.0",
+      "author": "PROFPLANLOZ/ CLAUDE/ GEMINI",
+      "created": "2026-06-03",
+      "license": "GPL V3",
+      "lang": ["DE"],
+      "tags": ["QR", "TOOL"],
+      "files": [
+        "apps/qr_code_generator/qr_code_generator.py",
+        "apps/qr_code_generator/qr_code_generator.p16img"
       ]
     },
     {
@@ -236,6 +311,20 @@
       "tags": ["GAME", "CART", "PLATFORMER"],
       "files": [
         "carts/tux_adventure_gemini_code_test2.pdf"
+      ]
+    },
+    {
+      "id": "forest",
+      "name": "FOREST",
+      "desc": "WALLPAPER FOREST",
+      "version": "1.0",
+      "author": "CHAT GPT",
+      "created": "2026-06-02",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/forest.p16canvas"
       ]
     },
     {
