@@ -241,7 +241,6 @@
         "apps/weather_app/weather_app.p16img"
       ]
     },
-
     {
       "id": "boot_cart",
       "name": "BOOT",
@@ -314,6 +313,34 @@
       ]
     },
     {
+      "id": "boat",
+      "name": "BOAT",
+      "desc": "WALLPAPER BOAT",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-14",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/boat.p16canvas"
+      ]
+    },
+    {
+      "id": "carstel",
+      "name": "CARSTEL",
+      "desc": "WALLPAPER CARSTEL",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-14",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/carstel.p16canvas"
+      ]
+    },
+    {
       "id": "forest",
       "name": "FOREST",
       "desc": "WALLPAPER FOREST",
@@ -328,6 +355,34 @@
       ]
     },
     {
+      "id": "forest 2",
+      "name": "FOREST 2",
+      "desc": "WALLPAPER FOREST 2",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-14",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/forest_2.p16canvas"
+      ]
+    },
+    {
+      "id": "mountain",
+      "name": "MOUNTAIN",
+      "desc": "WALLPAPER MOUNTAIN",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-14",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/mountain.p16canvas"
+      ]
+    },
+    {
       "id": "py16_2",
       "name": "PY16_2",
       "desc": "WALLPAPER PY16 2",
@@ -339,6 +394,34 @@
       "tags": ["WALLPAPER", "ART"],
       "files": [
         "p16canvas/py16_2.p16canvas"
+      ]
+    },
+    {
+      "id": "sky 1",
+      "name": "SKY 1",
+      "desc": "WALLPAPER SKY 1",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-14",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/sky_1.p16canvas"
+      ]
+    },
+    {
+      "id": "sky 2",
+      "name": "SKY 2",
+      "desc": "WALLPAPER SKY 2",
+      "version": "1.0",
+      "author": "GEMINI",
+      "created": "2026-06-14",
+      "license": "CC0-1.0",
+      "lang": [],
+      "tags": ["WALLPAPER", "ART"],
+      "files": [
+        "p16canvas/sky_2.p16canvas"
       ]
     },
     {
